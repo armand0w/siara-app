@@ -74,10 +74,10 @@ export interface Cliente {
 
 export interface ProyectoTarea {
   idProyectoTarea: null;
-  proyectos:       null;
-  tareas:          Tarea;
-  idEstatus:       null;
-  fecha:           null;
+  proyectos: null;
+  tareas: Tarea;
+  idEstatus: null;
+  fecha: null;
 }
 
 export interface Tarea {
@@ -147,3 +147,7 @@ export interface Rol {
   rol: string;
 }
 
+export interface ServiceStatus {
+  code: number | null;
+  message: string;
+}

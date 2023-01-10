@@ -5,7 +5,7 @@ import {
   Cliente,
   LoginResponse,
   Proyecto,
-  ProyectoTarea,
+  ProyectoTarea, ServiceStatus,
   Usuario,
 } from '../interfaces/appInterfaces';
 
@@ -67,4 +67,35 @@ export const getTareasByIdProyecto = async ( idProyecto: number ) => {
 export const postCargaHoras = async ( cargaHorasData: CargaHoras ) => {
     const { data } = await siaraApi.post<CargaHoras>('/api-rest-siara/cargaHoras', cargaHorasData);
     return data;
+};
+
+
+export const getStatus = async ( context: string ): Promise<ServiceStatus> => {
+
+  try {
+    const { status } = await siaraApi.get(context);
+    return { code: status, message: '' };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log('error message: ', error.message);
+      // 👇️ error: AxiosError<any, any>
+      if (error.response) {
+        // Request made but the server responded with an error
+        // console.log(JSON.stringify(error.response, null, 2));
+        return { code: error.response.status, message: error.message };
+      } else if (error.request) {
+        // Request made but no response is received from the server.
+        // console.log(JSON.stringify(error.request, null, 2));
+        return { code: error.request.status, message: error.request._response };
+      } else {
+        // Error occured while setting up the request
+        console.log(JSON.stringify(error, null, 2));
+        return { code: null, message: 'An unexpected error occurred.' };
+      }
+    } else {
+      console.log('unexpected error: ', error);
+      return { code: null, message: 'An unexpected error occurred' };
+    }
+  }
+
 };

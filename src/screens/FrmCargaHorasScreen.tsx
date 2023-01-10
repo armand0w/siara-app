@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { Picker } from '@react-native-picker/picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
 
 import { Cliente, Proyecto, ProyectoTarea } from '../interfaces/appInterfaces';
@@ -66,18 +67,20 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     if ( idCargaHoras.length > 0 ) {
       const individual = await getCargaHorasIndividual(parseInt(idCargaHoras, 10));
       // setIsEditable(false);
-      setFormValues({
-        idCargaHoras: (individual.idCargaHoras) ? individual.idCargaHoras.toString() : '',
-        cargaFechaString: (individual.cargaFecha) ? individual.cargaFecha : '',
-        cargaHoras: individual.cargaHoras.toString(),
-        cargaTitulo: individual.cargaTitulo,
-        cargaDescripcion: individual.cargaDescripcion,
-        cargaNotas: individual.cargaNotas,
-        idProyecto: individual.proyecto.idProyecto.toString(),
-        idTarea: individual.tarea.idTarea.toString(),
-        idCliente: individual.proyecto.clientes.idCliente.toString(),
-      });
-      // TODO - Mostrar error al cargar horas con datos vacios
+      if ( individual.proyecto.clientes ) {
+        setFormValues({
+          idCargaHoras: (individual.idCargaHoras) ? individual.idCargaHoras.toString() : '',
+          cargaFechaString: (individual.cargaFecha) ? individual.cargaFecha : '',
+          cargaHoras: individual.cargaHoras.toString(),
+          cargaTitulo: individual.cargaTitulo,
+          cargaDescripcion: individual.cargaDescripcion,
+          cargaNotas: individual.cargaNotas,
+          idProyecto: individual.proyecto.idProyecto.toString(),
+          idTarea: individual.tarea.idTarea.toString(),
+          idCliente: individual.proyecto.clientes.idCliente.toString(),
+        });
+        // TODO - Mostrar error al cargar horas con datos vacios
+      }
     }
   };
 
@@ -102,13 +105,73 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     }
   };
 
+  const validaGuardado = (  ) => {
+    if ( cargaHoras.length === 0 ) {
+      Alert.alert('Falta campo', 'La cantidad de horas no puede ser vacia');
+      return;
+    } else {
+      try {
+        let h = parseFloat(cargaHoras);
+        if ( isNaN(h) ) {
+          Alert.alert('Cantidad de horas invalido', 'El numero de horas es invalido');
+          return;
+        }
+
+        if ( h <= 0 ) {
+          Alert.alert('Cantidad de horas invalido', 'El numero de horas no puede ser negativo');
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+        Alert.alert('Cantidad de horas erronea', 'El numero de horas no es valido');
+        return;
+      }
+    }
+
+    if ( cargaFechaString.length === 0 ) {
+      Alert.alert('Falta campo', 'El campo fecha es obligatorio');
+      return;
+    }
+
+    if ( idCliente.length === 0 ) {
+      Alert.alert('Falta campo', 'El campo cliente es obligatorio');
+      return;
+    }
+
+    if ( idProyecto.length === 0 ) {
+      Alert.alert('Falta campo', 'El campo proyecto es obligatorio');
+      return;
+    }
+
+    if ( idTarea.length === 0 ) {
+      Alert.alert('Falta campo', 'El campo tarea es obligatorio');
+      return;
+    }
+
+    if ( cargaTitulo.length === 0 ) {
+      Alert.alert('Falta campo', 'El campo titulo es obligatorio');
+      return;
+    }
+
+    if ( cargaDescripcion.length === 0 ) {
+      Alert.alert('Falta campo', 'El campo descripcion es obligatorio');
+      return;
+    }
+
+    return true;
+  };
+
   const save = async () => {
-    if ( idCargaHoras.length > 0 && user ) {
+    if ( !validaGuardado() ) {
+      return;
+    }
+
+    if ( idCargaHoras.length > 0 && user ) { // edicion
       let aux = cargaFechaString.split('-');
 
       await updateHorasSemanaActual({
         idCargaHoras: parseInt(idCargaHoras, 10),
-        cargaHoras: parseInt(cargaHoras, 10),
+        cargaHoras: parseFloat(cargaHoras),
         cargaTitulo,
         cargaDescripcion,
         cargaNotas,
@@ -124,10 +187,10 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
         cargaFechaString: `${aux[2]}/${aux[1]}/${aux[0]}`,
         editable: true,
       });
-    } else {
+    } else { // nuevo registro
       if ( user ) {
         await addHorasSemanaActual({
-          cargaHoras: parseInt(cargaHoras, 10),
+          cargaHoras: parseFloat(cargaHoras),
           cargaTitulo,
           cargaDescripcion,
           cargaNotas,
@@ -149,12 +212,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   return (
     <View style={ styles.container }>
       <ScrollView>
-        <Text style={ styles.label }>Fecha:</Text>
+        <Text style={ styles.label }>Fecha*:</Text>
         <TouchableOpacity
           style={ styles.dateButton }
           onPress={ () => setDateOpen(true) }
         >
           <Text style={ styles.dateButtonText }>
+            <Icon name="calendar-outline" size={ 25 }/>
+            &nbsp;&nbsp;
             {
               ( cargaFechaString.length === 0 )
                 ? 'Seleccione una fecha'
@@ -184,7 +249,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           )
         }
 
-        <Text style={ styles.label }>Cliente:</Text>
+        <Text style={ styles.label }>Cliente*:</Text>
         <Picker
           dropdownIconColor="#000"
           dropdownIconRippleColor="#777"
@@ -207,7 +272,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           }
         </Picker>
 
-        <Text style={ styles.label }>Proyecto:</Text>
+        <Text style={ styles.label }>Proyecto*:</Text>
         <Picker
           dropdownIconColor="#000"
           dropdownIconRippleColor="#777"
@@ -227,7 +292,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           }
         </Picker>
 
-        <Text style={ styles.label }>Tarea:</Text>
+        <Text style={ styles.label }>Tarea*:</Text>
         <Picker
           dropdownIconColor="#000"
           dropdownIconRippleColor="#777"
@@ -247,7 +312,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           }
         </Picker>
 
-        <Text style={ styles.label }>Titulo:</Text>
+        <Text style={ styles.label }>Titulo*:</Text>
         <TextInput
           style={ styles.textInput }
           placeholder="Titulo"
@@ -255,7 +320,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onChangeText={ (value) => onChange( value, 'cargaTitulo' ) }
         />
 
-        <Text style={ styles.label }>Descripcion:</Text>
+        <Text style={ styles.label }>Descripcion*:</Text>
         <TextInput
           style={ styles.textArea }
           placeholder="Descripcion"
@@ -275,7 +340,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           multiline={ true }
         />
 
-        <Text style={ styles.label }>Cantidad de horas:</Text>
+        <Text style={ styles.label }>Cantidad de horas*:</Text>
         <TextInput
           style={ styles.textInput }
           placeholder="Horas"
@@ -285,11 +350,15 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           maxLength={ 5 }
         />
 
-        <Button
-          title="Guardar"
-          color={ colors.secondary }
+        <TouchableOpacity
+          style={ styles.dateButton }
           onPress={ save }
-        />
+        >
+          <Text style={ styles.dateButtonText }>
+            <Icon name="save" size={ 25 }/>
+            &nbsp;&nbsp;Guardar
+          </Text>
+        </TouchableOpacity>
 
         {/*<Text style={ styles.label }>{ JSON.stringify(form, null, 2) }</Text>*/}
       </ScrollView>

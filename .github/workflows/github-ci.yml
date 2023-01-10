@@ -1,0 +1,50 @@
+name: App release Android
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: reactnativecommunity/react-native-android
+    name: Build apk release arm
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Storing key.properties
+        run: echo "${{ secrets.KEY_PROPERTIES }}" | base64 --decode > android/app/key.properties
+
+      - name: Storing keystore
+        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > android/app/siarAppRelease.keystore
+
+      - name: Build application
+        run: yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - Primera version de statusScreen
+            - Validaciones en formulario de cargar horas
+            - Iconos en el formulario de cargar horas
+          draft: false
+          prerelease: false
+
+      - name: Upload .apks to artifacts
+        uses: svenstaro/upload-release-action@v2
+        with:
+          tag: ${{ github.ref }}
+          asset_name: "app bundle"
+          overwrite: true
+          file_glob: true
+          file: android/app/build/outputs/apk/release/app-*
+

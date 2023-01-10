@@ -1,37 +1,45 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { loginStyles } from '../theme/loginTheme';
 import { PMGroupLogo } from '../components/PMGroupLogo';
-import { useForm } from '../hooks/useForm';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AuthContext } from '../context/AuthContext';
+import { getStatus } from '../api/siaraApi';
+import { ServiceStatus } from '../interfaces/appInterfaces';
 
 interface Props extends StackScreenProps<any, any>{}
 
+
 export const StatusScreen = ({ navigation }: Props) => {
   const { errorMessage, removeError } = useContext(AuthContext);
-  const { name, email, password, onChange } = useForm({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [ page, setPage ] = useState<ServiceStatus>();
+  const [ ldap, setLdap ] = useState<ServiceStatus>();
+  const [ rest, setRest ] = useState<ServiceStatus>();
 
   useEffect(() => {
     if ( errorMessage.length === 0 ) {
       return;
     }
 
-    Alert.alert('Registro incorrecto', errorMessage, [{
+    Alert.alert('Error', errorMessage, [{
       text: 'Ok',
       onPress: removeError,
     }]);
   }, [ errorMessage ]);
 
-  const onRegister = () => {
-    console.log({ name, email, password });
-    Keyboard.dismiss();
-    // signUp({ nombre: name, correo: email, password });
+  useEffect(() => {
+    testStatus();
+  }, []);
+
+  const testStatus = async () => {
+    const pageAux = await getStatus('');
+    const ldapAux = await getStatus('/api-rest-siara-ldap-jwt');
+    const restAux = await getStatus('/api-rest-siara/usuarios');
+
+    setPage(pageAux);
+    setLdap(ldapAux);
+    setRest(restAux);
   };
 
   return (
@@ -43,70 +51,34 @@ export const StatusScreen = ({ navigation }: Props) => {
         <View style={ loginStyles.formContainer }>
           <PMGroupLogo/>
 
-          <Text style={ loginStyles.title }>Registro</Text>
+          <Text style={ loginStyles.title }>SIARA</Text>
 
-          <Text style={ loginStyles.label }>Nombre:</Text>
-          <TextInput
-            placeholder="Ingrese su nombre"
-            placeholderTextColor="rgba(255,255,255,0.4)"
-            underlineColorAndroid="white"
-            style={[
-              loginStyles.inputField,
-              ( Platform.OS === 'ios' && loginStyles.inputFieldIOS ),
-            ]}
-            selectionColor="white"
-            autoCapitalize="words"
-            autoCorrect={ false }
-            onChangeText={ (value) => onChange(value, 'name') }
-            value={ name }
-            onSubmitEditing={ onRegister }
-          />
+          <Text style={ loginStyles.label }>Pagina principal:</Text>
+          <TouchableOpacity
+            activeOpacity={ 0.8 }
+            style={{ borderColor: '#fff'}}
+          >
+            <Text style={ loginStyles.buttonText }>{ (page) && page.code }</Text>
+            <Text style={ loginStyles.buttonText }>{ (page) && page.message }</Text>
+          </TouchableOpacity>
 
-          <Text style={ loginStyles.label }>Email:</Text>
-          <TextInput
-            placeholder="Ingrese su email"
-            placeholderTextColor="rgba(255,255,255,0.4)"
-            keyboardType="email-address"
-            underlineColorAndroid="white"
-            style={[
-              loginStyles.inputField,
-              ( Platform.OS === 'ios' && loginStyles.inputFieldIOS ),
-            ]}
-            selectionColor="white"
-            autoCapitalize="none"
-            autoCorrect={ false }
-            onChangeText={ (value) => onChange(value, 'email') }
-            value={ email }
-            onSubmitEditing={ onRegister }
-          />
+          <Text style={ loginStyles.label }>Siara ldap:</Text>
+          <TouchableOpacity
+            activeOpacity={ 0.8 }
+            style={{ borderColor: '#fff'}}
+          >
+            <Text style={ loginStyles.buttonText }>{ (ldap) && ldap.code }</Text>
+            <Text style={ loginStyles.buttonText }>{ (ldap) && ldap.message }</Text>
+          </TouchableOpacity>
 
-          <Text style={ loginStyles.label }>Password:</Text>
-          <TextInput
-            placeholder="****"
-            placeholderTextColor="rgba(255,255,255,0.4)"
-            secureTextEntry
-            underlineColorAndroid="white"
-            style={[
-              loginStyles.inputField,
-              ( Platform.OS === 'ios' && loginStyles.inputFieldIOS ),
-            ]}
-            selectionColor="white"
-            autoCapitalize="none"
-            autoCorrect={ false }
-            onChangeText={ (value) => onChange(value, 'password') }
-            value={ password }
-            onSubmitEditing={ onRegister }
-          />
-
-          <View style={ loginStyles.buttonContainer }>
-            <TouchableOpacity
-              activeOpacity={ 0.8 }
-              style={ loginStyles.button }
-              onPress={ onRegister }
-            >
-              <Text style={ loginStyles.buttonText }>Crear cuenta</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={ loginStyles.label }>Siara rest:</Text>
+          <TouchableOpacity
+            activeOpacity={ 0.8 }
+            style={{ borderColor: '#fff'}}
+          >
+            <Text style={ loginStyles.buttonText }>{ (rest) && rest.code }</Text>
+            <Text style={ loginStyles.buttonText }>{ (rest) && rest.message }</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={ () => navigation.replace('LoginScreen')}
