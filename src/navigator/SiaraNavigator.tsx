@@ -24,7 +24,7 @@ export const SiaraNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         cardStyle: {
-          backgroundColor: 'white',
+          backgroundColor: '#fff',
         },
         headerStyle: {
           elevation: 0,

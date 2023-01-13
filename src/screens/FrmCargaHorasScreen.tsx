@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    color: 'black',
+    color: '#000',
   },
   textInput: {
     borderWidth: 1,
@@ -414,7 +414,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dateButtonText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 20,
   },
 });

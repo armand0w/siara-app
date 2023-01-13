@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   fabText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 40,
     fontWeight: 'bold',
     alignSelf: 'center',

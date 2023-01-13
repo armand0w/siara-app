@@ -53,7 +53,7 @@ export const HorasCargadas = ( { navigation }: Props ) => {
     <View style={{ flex: 1 }}>
       <SectionList
         sections={ sectionsList }
-        initialNumToRender={ 5 }
+        initialNumToRender={ 10 }
         renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
         keyExtractor={ (item) => `cargaSemana-${item.idCargaHoras}` }
         renderItem={({ item }) => (
