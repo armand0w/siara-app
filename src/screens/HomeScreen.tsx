@@ -22,7 +22,7 @@ export const HomeScreen = ( { navigation }: Props ) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          activeOpacity={ 0.7 }
+          // activeOpacity={ 0.7 }
           style={{ marginRight: 10 }}
           onPress={ logOut }
         >

@@ -83,7 +83,8 @@ export const HistoricoHorasScreen = ( { navigation }: Props ) => {
                 title={ item.cargaTitulo }
                 description={ item.cargaDescripcion }
                 hours={ item.cargaHoras }
-                onPressFn={ () => navigation.navigate('FrmCargaHorasScreen', { id: item.idCargaHoras.toString() }) }
+                tarea={ item.tarea.tareaDescripcion }
+                onPressFn={ () => navigation.navigate('FrmCargaHorasScreen', { id: item.idCargaHoras.toString(), canShowDelete: false }) }
               />
             )}
             refreshControl={

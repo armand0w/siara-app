@@ -5,24 +5,28 @@ interface Props {
   title: string;
   description: string;
   hours: number;
+  tarea: string;
   onPressFn?: () => void
 }
 
-export const CustomFlatRow = ( { title, description, hours, onPressFn }: Props ) => {
+export const CustomFlatRow = ( { title, description, hours, tarea, onPressFn }: Props ) => {
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={ onPressFn }
     >
-      <Text style={ styles.photo }>
+      <Text style={ styles.horas }>
         { hours }
       </Text>
       <View style={styles.containerText}>
-        <Text style={styles.title}>
-          {title}
+        <Text style={styles.titulo}>
+          { title }
         </Text>
         <Text style={styles.description}>
-          {description}
+          { description }
+        </Text>
+        <Text style={styles.tarea}>
+          { tarea }
         </Text>
       </View>
     </TouchableOpacity>
@@ -40,10 +44,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 5,
     backgroundColor: '#FFF',
-    elevation: 2,
+    elevation: 10,
   },
-  title: {
-    fontSize: 16,
+  titulo: {
+    fontSize: 15,
+    fontWeight: '600',
     color: '#000',
   },
   containerText: {
@@ -57,7 +62,12 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     color: '#000',
   },
-  photo: {
+  tarea: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  horas: {
     color: '#000',
     fontSize: 50,
   },

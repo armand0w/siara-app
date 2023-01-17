@@ -13,8 +13,7 @@ export type SiaraStackParams = {
   HistoricoHorasScreen: undefined,
   HorasCargadasScreen: undefined,
   ReporteHorasScreen: undefined,
-  FrmCargaHorasScreen: { id?: string },
-  // ProductScreen: { id?: string, name?: string }
+  FrmCargaHorasScreen: { id?: string, canShowDelete: boolean },
 }
 
 const Stack = createStackNavigator<SiaraStackParams>();

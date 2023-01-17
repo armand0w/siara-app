@@ -24,16 +24,18 @@ import {
 interface Props extends StackScreenProps<SiaraStackParams, 'FrmCargaHorasScreen'>{}
 
 export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
-  const { id = '' } = route.params;
+  const { id = '', canShowDelete } = route.params;
   const { user } = useContext(AuthContext);
-  const { addHorasSemanaActual, updateHorasSemanaActual } = useContext(HorasContext);
+  const { addHorasSemanaActual, updateHorasSemanaActual, deleteHoras } = useContext(HorasContext);
   const [ clientes, setClientes ] = useState<Cliente[]>([]);
   const [ proyectos, setProyectos ] = useState<Proyecto[]>([]);
   const [ tareas, setTareas ] = useState<ProyectoTarea[]>([]);
-  const { monday } = useWeekRange(new Date());
+  const { monday, sunday } = useWeekRange(new Date());
 
   const [ date, setDate ] = useState(new Date());
   const [ dateOpen, setDateOpen ] = useState(false);
+
+  const [ isEditable, setEditable ] = useState(false);
 
   const { idCargaHoras, cargaFechaString, cargaHoras, cargaTitulo, cargaDescripcion, cargaNotas, idProyecto, idTarea, idCliente, onChange, setFormValues, form } = useForm({
     idCargaHoras: id,
@@ -48,7 +50,23 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   });
 
   useEffect(() => {
-    loadCargaINdividual();
+    if ( isEditable && id.length > 0 && canShowDelete ) {
+      navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            // activeOpacity={ 0.7 }
+            style={{ marginRight: 10 }}
+            onPress={ showDeleteDlg }
+          >
+            <Text style={ styles.borrarBtn }>Borrar</Text>
+          </TouchableOpacity>
+        ),
+      });
+    }
+  }, [ isEditable ]);
+
+  useEffect(() => {
+    loadCargaIndividual();
   }, []);
 
   useEffect(() => {
@@ -63,10 +81,20 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     loadTareas();
   }, [idProyecto]);
 
-  const loadCargaINdividual = async () => {
+  useEffect(() => {
+    if ( id.length === 0 ) {
+      setEditable( true );
+    } else {
+      if ( monday && sunday && form.cargaFechaString ) {
+        const cargaDate = Date.parse(form.cargaFechaString);
+        setEditable( cargaDate >= Date.parse(monday) && cargaDate <= Date.parse(sunday) );
+      }
+    }
+  }, [ form, monday, sunday ]);
+
+  const loadCargaIndividual = async () => {
     if ( idCargaHoras.length > 0 ) {
       const individual = await getCargaHorasIndividual(parseInt(idCargaHoras, 10));
-      // setIsEditable(false);
       if ( individual.proyecto.clientes ) {
         setFormValues({
           idCargaHoras: (individual.idCargaHoras) ? individual.idCargaHoras.toString() : '',
@@ -79,7 +107,6 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           idTarea: individual.tarea.idTarea.toString(),
           idCliente: individual.proyecto.clientes.idCliente.toString(),
         });
-        // TODO - Mostrar error al cargar horas con datos vacios
       }
     }
   };
@@ -87,7 +114,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   const loadClientes = async () => {
     if ( user ) {
       const clientesData = await getClientes(user.matrizGenerales.empId);
-      setClientes(clientesData);
+      setClientes( clientesData );
     }
   };
 
@@ -206,27 +233,52 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
         });
       }
     }
+
     navigation.pop();
+  };
+
+  const showDeleteDlg = async () => {
+    Alert.alert('Borrar horas registradas', `Seguro que desea borrar: ${form.cargaTitulo} (${form.cargaHoras})`, [
+      {
+        text: 'Cancelar',
+      },
+      {
+        text: 'Ok',
+        onPress: () => {
+          deleteHoras( parseInt(id, 10) );
+          navigation.pop();
+        },
+      },
+    ]);
   };
 
   return (
     <View style={ styles.container }>
       <ScrollView>
         <Text style={ styles.label }>Fecha*:</Text>
-        <TouchableOpacity
-          style={ styles.dateButton }
-          onPress={ () => setDateOpen(true) }
-        >
-          <Text style={ styles.dateButtonText }>
-            <Icon name="calendar-outline" size={ 25 }/>
-            &nbsp;&nbsp;
-            {
-              ( cargaFechaString.length === 0 )
-                ? 'Seleccione una fecha'
-                : `Fecha: ${cargaFechaString}`
-            }
-          </Text>
-        </TouchableOpacity>
+        {
+          ( isEditable ) ?
+            <TouchableOpacity
+                style={ styles.dateButton }
+                onPress={ () => setDateOpen(true) }
+            >
+                <Text style={ styles.dateButtonText }>
+                    <Icon name="calendar-outline" size={ 25 }/>
+                    &nbsp;&nbsp;
+                  {
+                    ( cargaFechaString.length === 0 )
+                      ? 'Seleccione una fecha'
+                      : `Fecha: ${cargaFechaString}`
+                  }
+                </Text>
+            </TouchableOpacity> :
+            <TextInput
+              style={ styles.textInput }
+              placeholder="Fecha de carga"
+              value={ cargaFechaString.replace(/-/g, '/') }
+              editable={ isEditable }
+            />
+        }
         {
           ( monday ) && (
             <>
@@ -235,11 +287,13 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
                 open={ dateOpen }
                 date={ date }
                 locale="es-MX"
-                minimumDate={new Date(monday.toString())} maximumDate={new Date()} mode="date"
+                minimumDate={ new Date(monday.toString()) }
+                maximumDate={ new Date() }
+                mode="date"
                 onConfirm={(data) => {
-                  setDateOpen(false);
-                  setDate(data);
-                  onChange(`${('00' + data.getDate()).slice(-2)}/${('00' +  data.getMonth() + 1).slice(-2)}/${data.getFullYear()}`, 'cargaFechaString');
+                  setDateOpen( false );
+                  setDate( data );
+                  onChange(`${('00' + data.getDate()).slice(-2)}/${('00' + data.getMonth() + 1).slice(-2)}/${data.getFullYear()}`, 'cargaFechaString');
                 }}
                 onCancel={() => {
                   setDateOpen(false);
@@ -255,6 +309,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           dropdownIconRippleColor="#777"
           style={ styles.picker }
           selectedValue={ idCliente }
+          enabled={ isEditable }
           onValueChange={ (value) => {
             onChange(value, 'idCliente');
             setProyectos([]);
@@ -279,6 +334,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           style={ styles.picker }
           selectedValue={ idProyecto }
           onValueChange={ (value) => onChange(value, 'idProyecto') }
+          enabled={ isEditable }
         >
           <Picker.Item label="- Selecione un proyecto -" value="" />
           {
@@ -299,6 +355,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           style={ styles.picker }
           selectedValue={ idTarea }
           onValueChange={ (value) => onChange(value, 'idTarea') }
+          enabled={ isEditable }
         >
           <Picker.Item label="- Selecione una tarea -" value="" />
           {
@@ -318,6 +375,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           placeholder="Titulo"
           value={ cargaTitulo }
           onChangeText={ (value) => onChange( value, 'cargaTitulo' ) }
+          editable={ isEditable }
         />
 
         <Text style={ styles.label }>Descripcion*:</Text>
@@ -328,6 +386,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onChangeText={ (value) => onChange( value, 'cargaDescripcion' ) }
           numberOfLines={ 5 }
           multiline={ true }
+          editable={ isEditable }
         />
 
         <Text style={ styles.label }>Notas:</Text>
@@ -338,6 +397,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onChangeText={ (value) => onChange( value, 'cargaNotas' ) }
           numberOfLines={ 5 }
           multiline={ true }
+          editable={ isEditable }
         />
 
         <Text style={ styles.label }>Cantidad de horas*:</Text>
@@ -348,17 +408,21 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onChangeText={ (value) => onChange( value, 'cargaHoras' ) }
           keyboardType="numeric"
           maxLength={ 5 }
+          editable={ isEditable }
         />
 
-        <TouchableOpacity
-          style={ styles.dateButton }
-          onPress={ save }
-        >
-          <Text style={ styles.dateButtonText }>
-            <Icon name="save" size={ 25 }/>
-            &nbsp;&nbsp;Guardar
-          </Text>
-        </TouchableOpacity>
+        {
+          ( isEditable ) &&
+            <TouchableOpacity
+              style={ styles.dateButton }
+              onPress={ save }
+            >
+              <Text style={ styles.dateButtonText }>
+                <Icon name="save" size={ 25 }/>
+                &nbsp;&nbsp;Guardar
+              </Text>
+            </TouchableOpacity>
+        }
 
         {/*<Text style={ styles.label }>{ JSON.stringify(form, null, 2) }</Text>*/}
       </ScrollView>
@@ -416,5 +480,9 @@ const styles = StyleSheet.create({
   dateButtonText: {
     color: 'white',
     fontSize: 20,
+  },
+  borrarBtn: {
+    fontSize: 13,
+    color: '#ff0000',
   },
 });
