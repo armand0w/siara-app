@@ -32,10 +32,14 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Changes in this Release
-            - Primera version de statusScreen
-            - Validaciones en formulario de cargar horas
-            - Iconos en el formulario de cargar horas
+            Cambios de la version
+            - Splash screen
+            - Tipo de tarea en lista de horas
+            - Puede borrar hora cargada de la semana
+            - Puede editar solo horas de la semana
+            - Se envia User-Agent
+            - Token con prefijo bearer
+            - Reglas de slint
           draft: false
           prerelease: false
 
