@@ -32,10 +32,10 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Changes in this Release
-            - Primera version de statusScreen
-            - Validaciones en formulario de cargar horas
-            - Iconos en el formulario de cargar horas
+            Cambios de la version
+            - Fix: fecha erronea al cargar horas
+            - Update RN 0.71.2
+            - Update react dependencies
           draft: false
           prerelease: false
 
