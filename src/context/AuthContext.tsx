@@ -75,7 +75,6 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
   const logOut = async () => {
-    // await AsyncStorage.removeItem('userName');
     await AsyncStorage.removeItem('token');
     await AsyncStorage.removeItem('userInfo');
     dispatch({
@@ -90,7 +89,6 @@ export const AuthProvider = ({ children }: any) => {
     <AuthContext.Provider value={{
       ...state,
       signIn,
-      // signUp,
       logOut,
       removeError,
     }}>

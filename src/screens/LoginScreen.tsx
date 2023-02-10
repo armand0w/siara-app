@@ -43,7 +43,6 @@ export const LoginScreen = ({ navigation }: Props) => {
   };
 
   const onLogin = () => {
-    // console.log({ username, password });
     Keyboard.dismiss();
     signIn({ username, password });
   };

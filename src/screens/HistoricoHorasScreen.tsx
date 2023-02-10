@@ -54,7 +54,7 @@ export const HistoricoHorasScreen = ( { navigation }: Props ) => {
   const loadHistorico = async () => {
     if ( user ) {
       const historico = await getHistoricoHorasCargadas(user.matrizGenerales.empId);
-      setHorasHistorico(historico.reverse().slice(0, 50));
+      setHorasHistorico([...historico].reverse().slice(0, 50));
     }
   };
 
