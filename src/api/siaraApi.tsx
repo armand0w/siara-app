@@ -13,11 +13,12 @@ const baseURL: string = 'http://siara.grupopm.mx:8087';
 const siaraApi = axios.create({ baseURL });
 
 siaraApi.interceptors.request.use(
-  async(config) => {
+  async( config: any ) => {
     const token = await AsyncStorage.getItem('token');
 
     if ( token && config && config.headers ) {
-      config.headers['x-token'] = token;
+      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.setUserAgent('SiaraApp');
     }
 
     return config;
@@ -34,6 +35,8 @@ export const getUserInfo = async ( username: string ) => {
   return data;
 };
 
+
+
 export const getCargaHorasIndividual = async ( idCargaHoras: number ) => {
   const { data } = await siaraApi.get<CargaHoras>('/api-rest-siara/cargaHoras/' + idCargaHoras);
   return data;
@@ -48,6 +51,17 @@ export const getHistoricoHorasCargadas = async ( empId: number ) => {
   const { data } = await siaraApi.get<CargaHoras[]>('/api-rest-siara/cargaHoras/empleado/' + empId);
   return data;
 };
+
+export const postCargaHoras = async ( cargaHorasData: CargaHoras ) => {
+  const { data } = await siaraApi.post<CargaHoras>('/api-rest-siara/cargaHoras', cargaHorasData);
+  return data;
+};
+
+export const deleteCargaHoras = async ( idCargaHoras: number ) => {
+  await siaraApi.delete('/api-rest-siara/cargaHoras/' + idCargaHoras);
+};
+
+
 
 export const getClientes = async ( empId: number ) => {
   const { data } = await siaraApi.get<Cliente[]>(`/api-rest-siara/clientes/${empId}/empleado`);
@@ -64,14 +78,9 @@ export const getTareasByIdProyecto = async ( idProyecto: number ) => {
   return data;
 };
 
-export const postCargaHoras = async ( cargaHorasData: CargaHoras ) => {
-    const { data } = await siaraApi.post<CargaHoras>('/api-rest-siara/cargaHoras', cargaHorasData);
-    return data;
-};
 
 
 export const getStatus = async ( context: string ): Promise<ServiceStatus> => {
-
   try {
     const { status } = await siaraApi.get(context);
     return { code: status, message: '' };
@@ -97,5 +106,4 @@ export const getStatus = async ( context: string ): Promise<ServiceStatus> => {
       return { code: null, message: 'An unexpected error occurred' };
     }
   }
-
 };

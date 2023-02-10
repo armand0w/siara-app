@@ -53,7 +53,7 @@ export const HorasCargadas = ( { navigation }: Props ) => {
     <View style={{ flex: 1 }}>
       <SectionList
         sections={ sectionsList }
-        initialNumToRender={ 10 }
+        initialNumToRender={ 5 }
         renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
         keyExtractor={ (item) => `cargaSemana-${item.idCargaHoras}` }
         renderItem={({ item }) => (
@@ -62,7 +62,8 @@ export const HorasCargadas = ( { navigation }: Props ) => {
             title={ item.cargaTitulo }
             description={ item.cargaDescripcion }
             hours={ item.cargaHoras }
-            onPressFn={ () => navigation.navigate('FrmCargaHorasScreen', { id: item.idCargaHoras.toString() }) }
+            tarea={ item.tarea.tareaDescripcion }
+            onPressFn={ () => navigation.navigate('FrmCargaHorasScreen', { id: item.idCargaHoras.toString(), canShowDelete: true }) }
           />
         )}
         refreshControl={
@@ -73,7 +74,7 @@ export const HorasCargadas = ( { navigation }: Props ) => {
       <Fab
         title="+"
         position="br"
-        onPress={ () => navigation.navigate('FrmCargaHorasScreen', { id: '' }) }
+        onPress={ () => navigation.navigate('FrmCargaHorasScreen', { id: '', canShowDelete: false }) }
       />
     </View>
   );
