@@ -280,7 +280,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
             />
         }
         {
-          ( monday ) && (
+          ( monday && sunday ) && (
             <>
               <DatePicker
                 modal
@@ -288,12 +288,12 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
                 date={ date }
                 locale="es-MX"
                 minimumDate={ new Date(monday.toString()) }
-                maximumDate={ new Date() }
+                maximumDate={ new Date(sunday.toString()) }
                 mode="date"
                 onConfirm={(data) => {
                   setDateOpen( false );
                   setDate( data );
-                  onChange(`${('00' + data.getDate()).slice(-2)}/${('00' + data.getMonth() + 1).slice(-2)}/${data.getFullYear()}`, 'cargaFechaString');
+                  onChange(data.toLocaleDateString(), 'cargaFechaString');
                 }}
                 onCancel={() => {
                   setDateOpen(false);

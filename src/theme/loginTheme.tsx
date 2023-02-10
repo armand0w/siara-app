@@ -9,7 +9,7 @@ export const loginStyles = StyleSheet.create({
     marginBottom: 50,
   },
   title: {
-    color: 'while',
+    color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 20,
