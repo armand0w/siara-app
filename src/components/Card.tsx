@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 20,
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
   },
   cardText: {
     fontSize: 18,
     fontStyle: 'italic',
-    color: 'black',
+    color: '#000',
     justifyContent: 'flex-end',
   },
   cardNumber: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     top: 50,
     right: -10,
     fontSize: 30,
-    color: 'black',
+    color: '#000',
   },
   cardIcon: {
     width: 70,

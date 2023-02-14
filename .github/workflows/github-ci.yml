@@ -32,14 +32,10 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version
-            - Splash screen
-            - Tipo de tarea en lista de horas
-            - Puede borrar hora cargada de la semana
-            - Puede editar solo horas de la semana
-            - Se envia User-Agent
-            - Token con prefijo bearer
-            - Reglas de slint
+            Cambios de la version v0.0.3
+            - Fix: fecha erronea al cargar horas
+            - Update RN 0.71.2
+            - Update react dependencies
           draft: false
           prerelease: false
 

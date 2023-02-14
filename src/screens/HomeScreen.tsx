@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 20,
-    color: 'black',
+    color: '#000',
   },
   logout: {
     fontSize: 15,

@@ -23,7 +23,7 @@ export const AuthNavigator = () => {
         headerShown: false,
         title: 'SIARA',
         cardStyle: {
-          backgroundColor: 'white',
+          backgroundColor: '#fff',
         },
       }}
     >

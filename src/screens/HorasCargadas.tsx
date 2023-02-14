@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 14,
     fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
+    backgroundColor: 'rgb(231,231,231)',
     color: '#000',
   },
   item: {

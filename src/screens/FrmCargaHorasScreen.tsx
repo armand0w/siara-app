@@ -252,6 +252,18 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     ]);
   };
 
+  const formatDate = (selected: Date) => {
+    function padTo2Digits(num: number) {
+      return num.toString().padStart(2, '0');
+    }
+
+    return [
+      padTo2Digits(selected.getDate()),
+      padTo2Digits(selected.getMonth() + 1),
+      selected.getFullYear(),
+    ].join('/');
+  };
+
   return (
     <View style={ styles.container }>
       <ScrollView>
@@ -293,7 +305,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
                 onConfirm={(data) => {
                   setDateOpen( false );
                   setDate( data );
-                  onChange(data.toLocaleDateString(), 'cargaFechaString');
+                  onChange(formatDate(data), 'cargaFechaString');
                 }}
                 onCancel={() => {
                   setDateOpen(false);
@@ -438,7 +450,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    color: 'black',
+    color: '#000',
   },
   textInput: {
     borderWidth: 1,
@@ -478,7 +490,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dateButtonText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 20,
   },
   borrarBtn: {
