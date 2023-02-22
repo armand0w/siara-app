@@ -83,7 +83,7 @@ export const HistoricoHorasScreen = ( { navigation }: Props ) => {
                 title={ item.cargaTitulo }
                 description={ item.cargaDescripcion }
                 hours={ item.cargaHoras }
-                tarea={ item.tarea.tareaDescripcion }
+                task={ item.tarea.tareaDescripcion }
                 onPressFn={ () => navigation.navigate('FrmCargaHorasScreen', { id: item.idCargaHoras.toString(), canShowDelete: false }) }
               />
             )}

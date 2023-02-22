@@ -5,11 +5,11 @@ interface Props {
   title: string;
   description: string;
   hours: number;
-  tarea: string;
+  task: string;
   onPressFn?: () => void
 }
 
-export const CustomFlatRow = ( { title, description, hours, tarea, onPressFn }: Props ) => {
+export const CustomFlatRow = ( { title, description, hours, task, onPressFn }: Props ) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -26,7 +26,7 @@ export const CustomFlatRow = ( { title, description, hours, tarea, onPressFn }: 
           { description }
         </Text>
         <Text style={styles.tarea}>
-          { tarea }
+          { task }
         </Text>
       </View>
     </TouchableOpacity>

@@ -39,7 +39,7 @@ export const HorasProvider = ( { children }: any ) => {
 
   const updateHorasSemanaActual = async ( cargaHoras: CargaHoras ) => {
     const data = await postCargaHoras(cargaHoras);
-    setHorasSemana( horasSemana.map( (h) => ( h.idCargaHoras === cargaHoras.idCargaHoras ) ? data : h ) );
+    await loadHorasSemanaActual();
     return data;
   };
 

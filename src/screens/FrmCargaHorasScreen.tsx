@@ -87,7 +87,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     } else {
       if ( monday && sunday && form.cargaFechaString ) {
         const cargaDate = Date.parse(form.cargaFechaString);
-        setEditable( cargaDate >= Date.parse(monday) && cargaDate <= Date.parse(sunday) );
+        setEditable( cargaDate >= Date.parse(monday) && cargaDate <= Date.parse(sunday) && canShowDelete );
       }
     }
   }, [ form, monday, sunday ]);
