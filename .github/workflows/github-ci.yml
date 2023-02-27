@@ -32,10 +32,11 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version v0.0.3
-            - Fix: fecha erronea al cargar horas
-            - Update RN 0.71.2
-            - Update react dependencies
+            Cambios de la version v0.0.4
+            - Se actualiza lista al actualizar hora
+            - No permite editar en historico de horas
+            - Update de dependencias
+            - Tema oscuro
           draft: false
           prerelease: false
 

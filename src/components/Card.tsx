@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props {
   title: string;
@@ -11,12 +12,14 @@ interface Props {
 }
 
 export const Card = ({ title, number, iconBackground, iconName, screenOnPress }: Props) => {
+  const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <TouchableOpacity
       style={{
         ...styles.card,
         borderColor: iconBackground,
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
       }}
       onPress={ screenOnPress }
     >
@@ -30,8 +33,14 @@ export const Card = ({ title, number, iconBackground, iconName, screenOnPress }:
         flex: 1,
         alignItems: 'flex-end',
       }}>
-        <Text style={ styles.cardText }>{ title }</Text>
-        <Text style={ styles.cardNumber }>{ number }</Text>
+        <Text style={{
+          ...styles.cardText,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}>{ title }</Text>
+        <Text style={{
+          ...styles.cardNumber,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}>{ number }</Text>
       </View>
     </TouchableOpacity>
   );
@@ -45,20 +54,20 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 20,
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    //backgroundColor: '#fff',
   },
   cardText: {
     fontSize: 18,
     fontStyle: 'italic',
-    color: '#000',
     justifyContent: 'flex-end',
+    // color: '#000',
   },
   cardNumber: {
     position: 'absolute',
     top: 50,
     right: -10,
     fontSize: 30,
-    color: '#000',
+    // color: '#000',
   },
   cardIcon: {
     width: 70,

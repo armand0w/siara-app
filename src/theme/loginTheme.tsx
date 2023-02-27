@@ -57,4 +57,8 @@ export const loginStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
+  statusText: {
+    fontSize: 15,
+    color: '#F3F3F3',
+  },
 });

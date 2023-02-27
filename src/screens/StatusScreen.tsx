@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Alert, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { loginStyles } from '../theme/loginTheme';
 import { PMGroupLogo } from '../components/PMGroupLogo';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AuthContext } from '../context/AuthContext';
 import { getStatus } from '../api/siaraApi';
 import { ServiceStatus } from '../interfaces/appInterfaces';
+import { colors } from '../theme/colors';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props extends StackScreenProps<any, any>{}
 
@@ -16,6 +18,7 @@ export const StatusScreen = ({ navigation }: Props) => {
   const [ page, setPage ] = useState<ServiceStatus>();
   const [ ldap, setLdap ] = useState<ServiceStatus>();
   const [ rest, setRest ] = useState<ServiceStatus>();
+  const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
     if ( errorMessage.length === 0 ) {
@@ -42,10 +45,25 @@ export const StatusScreen = ({ navigation }: Props) => {
     setRest(restAux);
   };
 
+  const getBadge = ( data: ServiceStatus ) => {
+
+    return (
+      <View >
+        <Text style={ loginStyles.statusText }>
+          {
+            ( data.code === 200 || data.code === 401 ) ?
+              'OK' :
+              'Error: ' + data.message
+          }
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <>
       <KeyboardAvoidingView
-        style={{ flex: 1, backgroundColor: '#ef5350' }}
+        style={{ flex: 1, backgroundColor: isDarkMode ? colors.secondary : colors.primary }}
         behavior={ ( Platform.OS === 'ios' ) ? 'padding' : 'height' }
       >
         <View style={ loginStyles.formContainer }>
@@ -56,28 +74,25 @@ export const StatusScreen = ({ navigation }: Props) => {
           <Text style={ loginStyles.label }>Pagina principal:</Text>
           <TouchableOpacity
             activeOpacity={ 0.8 }
-            style={{ borderColor: '#fff'}}
+            style={{ borderColor: Colors.white }}
           >
-            <Text style={ loginStyles.buttonText }>{ (page) && page.code }</Text>
-            <Text style={ loginStyles.buttonText }>{ (page) && page.message }</Text>
+            { page && getBadge(page) }
           </TouchableOpacity>
 
           <Text style={ loginStyles.label }>Siara ldap:</Text>
           <TouchableOpacity
             activeOpacity={ 0.8 }
-            style={{ borderColor: '#fff'}}
+            style={{ borderColor: Colors.white }}
           >
-            <Text style={ loginStyles.buttonText }>{ (ldap) && ldap.code }</Text>
-            <Text style={ loginStyles.buttonText }>{ (ldap) && ldap.message }</Text>
+            { ldap && getBadge(ldap) }
           </TouchableOpacity>
 
           <Text style={ loginStyles.label }>Siara rest:</Text>
           <TouchableOpacity
             activeOpacity={ 0.8 }
-            style={{ borderColor: '#fff'}}
+            style={{ borderColor: Colors.white }}
           >
-            <Text style={ loginStyles.buttonText }>{ (rest) && rest.code }</Text>
-            <Text style={ loginStyles.buttonText }>{ (rest) && rest.message }</Text>
+            { rest && getBadge(rest) }
           </TouchableOpacity>
 
           <TouchableOpacity
