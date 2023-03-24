@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, useColorScheme, View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import { colors } from '../theme/colors';
 
 export const LoadingScreen = () => {
+  const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() =>{
     SplashScreen.hide();
@@ -13,7 +15,7 @@ export const LoadingScreen = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#e53935',
+      backgroundColor: isDarkMode ? colors.secondary : colors.primary,
     }}>
       <ActivityIndicator
         size={ 70 }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 
 import { StackScreenProps } from '@react-navigation/stack';
 
@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 import { Card } from '../components/Card';
 import { SiaraStackParams } from '../navigator/SiaraNavigator';
 import { HorasContext } from '../context/HorasContext';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props extends StackScreenProps<SiaraStackParams, 'HomeScreen'>{}
 
@@ -17,6 +18,7 @@ export const HomeScreen = ( { navigation }: Props ) => {
   const [ horasNoCargadas, setHorasNoCargadas ] = useState(0);
   const [ proyectos, setProyectos ] = useState(0);
   const [ isRefreshing, setIsRefreshing ] = useState(false);
+  const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
     navigation.setOptions({
@@ -57,7 +59,10 @@ export const HomeScreen = ( { navigation }: Props ) => {
       contentContainerStyle={ styles.container }
       refreshControl={ <RefreshControl refreshing={ isRefreshing } onRefresh={ onRefresh }/> }
     >
-      <View style={ styles.container }>
+      <View style={{
+        ...styles.container,
+        backgroundColor: isDarkMode ? Colors.black : Colors.lighter,
+      }}>
         <Card
           number={ horasCargadas }
           title="Horas cargadas"
@@ -89,8 +94,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
-    // alignItems: 'center',
-    backgroundColor: '#f1f1f1',
   },
   title: {
     fontSize: 20,

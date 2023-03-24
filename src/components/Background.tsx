@@ -1,17 +1,20 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import { colors } from '../theme/colors';
 
 export const Background = () => {
+  const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={ styles.background }/>
+    <View style={{
+      ...styles.background,
+      backgroundColor: isDarkMode ? colors.secondary : colors.primary,
+    }}/>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
-    backgroundColor: colors.primary,
     top: -250,
     width: 1000,
     height: 1100,

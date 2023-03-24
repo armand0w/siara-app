@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { RefreshControl, SectionList, StyleSheet, Text, View } from 'react-native';
+import { RefreshControl, SectionList, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SiaraStackParams } from '../navigator/SiaraNavigator';
 
@@ -8,6 +8,7 @@ import { CargaHoras } from '../interfaces/appInterfaces';
 import { CustomFlatRow } from '../components/CustomFlatRow';
 import { Fab } from '../components/Fab';
 import { HorasContext } from '../context/HorasContext';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props extends StackScreenProps<SiaraStackParams, 'HorasCargadasScreen'>{}
 
@@ -15,6 +16,7 @@ export const HorasCargadas = ( { navigation }: Props ) => {
   const { horasSemana, loadHorasSemanaActual } = useContext(HorasContext);
   const [ sectionsList, setSectionsList ] = useState<any>([]);
   const [ isRefreshing, setIsRefreshing ] = useState(false);
+  const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
     const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
@@ -50,11 +52,18 @@ export const HorasCargadas = ( { navigation }: Props ) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{
+      flex: 1,
+      backgroundColor: isDarkMode ? Colors.black : Colors.lighter,
+    }}>
       <SectionList
         sections={ sectionsList }
         initialNumToRender={ 5 }
-        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+        renderSectionHeader={ ({section}) => <Text style={{
+          ...styles.sectionHeader,
+          backgroundColor: isDarkMode ? Colors.black : 'rgb(231,231,231)',
+          color: isDarkMode ? Colors.primary : Colors.black,
+        }}>{section.title}</Text> }
         keyExtractor={ (item) => `cargaSemana-${item.idCargaHoras}` }
         renderItem={({ item }) => (
           <CustomFlatRow
@@ -62,7 +71,7 @@ export const HorasCargadas = ( { navigation }: Props ) => {
             title={ item.cargaTitulo }
             description={ item.cargaDescripcion }
             hours={ item.cargaHoras }
-            tarea={ item.tarea.tareaDescripcion }
+            task={ item.tarea.tareaDescripcion || '' }
             onPressFn={ () => navigation.navigate('FrmCargaHorasScreen', { id: item.idCargaHoras.toString(), canShowDelete: true }) }
           />
         )}
@@ -88,13 +97,5 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 14,
     fontWeight: 'bold',
-    backgroundColor: 'rgb(231,231,231)',
-    color: '#000',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    color: '#000',
   },
 });

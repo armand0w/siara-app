@@ -7,11 +7,14 @@ import { LoginScreen } from '../screens/LoginScreen';
 import { StatusScreen } from '../screens/StatusScreen';
 import { LoadingScreen } from '../screens/LoadingScreen';
 import { SiaraNavigator } from './SiaraNavigator';
+import { useColorScheme } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
 
 export const AuthNavigator = () => {
   const { status } = useContext(AuthContext);
+  const isDarkMode = useColorScheme() === 'dark';
 
   if ( status === 'checking' ) {
     return <LoadingScreen/>;
@@ -23,7 +26,7 @@ export const AuthNavigator = () => {
         headerShown: false,
         title: 'SIARA',
         cardStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
         },
       }}
     >

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { Picker } from '@react-native-picker/picker';
@@ -20,6 +20,7 @@ import {
   getProyectosClientes,
   getTareasByIdProyecto,
 } from '../api/siaraApi';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props extends StackScreenProps<SiaraStackParams, 'FrmCargaHorasScreen'>{}
 
@@ -31,6 +32,12 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   const [ proyectos, setProyectos ] = useState<Proyecto[]>([]);
   const [ tareas, setTareas ] = useState<ProyectoTarea[]>([]);
   const { monday, sunday } = useWeekRange(new Date());
+
+  const isDarkMode = useColorScheme() === 'dark';
+  const labelTheme = isDarkMode ? {fontSize: 18, color: Colors.white} : {fontSize: 18, color: Colors.black};
+  const customTheme = isDarkMode ?
+    { borderColor: Colors.dark, color: Colors.light} :
+    { borderColor: 'rgba(0,0,0,0.4)', color: Colors.black };
 
   const [ date, setDate ] = useState(new Date());
   const [ dateOpen, setDateOpen ] = useState(false);
@@ -87,7 +94,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     } else {
       if ( monday && sunday && form.cargaFechaString ) {
         const cargaDate = Date.parse(form.cargaFechaString);
-        setEditable( cargaDate >= Date.parse(monday) && cargaDate <= Date.parse(sunday) );
+        setEditable( cargaDate >= Date.parse(monday) && cargaDate <= Date.parse(sunday) && canShowDelete );
       }
     }
   }, [ form, monday, sunday ]);
@@ -265,9 +272,12 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   };
 
   return (
-    <View style={ styles.container }>
+    <View style={{
+      ...styles.container,
+      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+    }}>
       <ScrollView>
-        <Text style={ styles.label }>Fecha*:</Text>
+        <Text style={ labelTheme }>Fecha*:</Text>
         {
           ( isEditable ) ?
             <TouchableOpacity
@@ -285,7 +295,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
                 </Text>
             </TouchableOpacity> :
             <TextInput
-              style={ styles.textInput }
+              style={{ ...styles.textInput, ...customTheme }}
               placeholder="Fecha de carga"
               value={ cargaFechaString.replace(/-/g, '/') }
               editable={ isEditable }
@@ -315,11 +325,11 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           )
         }
 
-        <Text style={ styles.label }>Cliente*:</Text>
+        <Text style={ labelTheme }>Cliente*:</Text>
         <Picker
-          dropdownIconColor="#000"
-          dropdownIconRippleColor="#777"
-          style={ styles.picker }
+          dropdownIconColor={ isDarkMode ? Colors.white : Colors.black }
+          dropdownIconRippleColor={ isDarkMode ? Colors.white : colors.secondary }
+          style={{ ...styles.picker, ...customTheme }}
           selectedValue={ idCliente }
           enabled={ isEditable }
           onValueChange={ (value) => {
@@ -339,11 +349,11 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           }
         </Picker>
 
-        <Text style={ styles.label }>Proyecto*:</Text>
+        <Text style={ labelTheme }>Proyecto*:</Text>
         <Picker
-          dropdownIconColor="#000"
-          dropdownIconRippleColor="#777"
-          style={ styles.picker }
+          dropdownIconColor={ isDarkMode ? Colors.white : Colors.black }
+          dropdownIconRippleColor={ isDarkMode ? Colors.white : colors.secondary }
+          style={{ ...styles.picker, ...customTheme }}
           selectedValue={ idProyecto }
           onValueChange={ (value) => onChange(value, 'idProyecto') }
           enabled={ isEditable }
@@ -360,11 +370,11 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           }
         </Picker>
 
-        <Text style={ styles.label }>Tarea*:</Text>
+        <Text style={ labelTheme }>Tarea*:</Text>
         <Picker
-          dropdownIconColor="#000"
-          dropdownIconRippleColor="#777"
-          style={ styles.picker }
+          dropdownIconColor={ isDarkMode ? Colors.white : Colors.black }
+          dropdownIconRippleColor={ isDarkMode ? Colors.white : colors.secondary }
+          style={{ ...styles.picker, ...customTheme }}
           selectedValue={ idTarea }
           onValueChange={ (value) => onChange(value, 'idTarea') }
           enabled={ isEditable }
@@ -381,18 +391,18 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           }
         </Picker>
 
-        <Text style={ styles.label }>Titulo*:</Text>
+        <Text style={ labelTheme }>Titulo*:</Text>
         <TextInput
-          style={ styles.textInput }
+          style={{ ...styles.picker, ...customTheme }}
           placeholder="Titulo"
           value={ cargaTitulo }
           onChangeText={ (value) => onChange( value, 'cargaTitulo' ) }
           editable={ isEditable }
         />
 
-        <Text style={ styles.label }>Descripcion*:</Text>
+        <Text style={ labelTheme }>Descripcion*:</Text>
         <TextInput
-          style={ styles.textArea }
+          style={{ ...styles.textArea, ...customTheme }}
           placeholder="Descripcion"
           value={ cargaDescripcion }
           onChangeText={ (value) => onChange( value, 'cargaDescripcion' ) }
@@ -401,9 +411,9 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           editable={ isEditable }
         />
 
-        <Text style={ styles.label }>Notas:</Text>
+        <Text style={ labelTheme }>Notas:</Text>
         <TextInput
-          style={ styles.textArea }
+          style={{ ...styles.textArea, ...customTheme }}
           placeholder="Notas"
           value={ cargaNotas }
           onChangeText={ (value) => onChange( value, 'cargaNotas' ) }
@@ -412,9 +422,9 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           editable={ isEditable }
         />
 
-        <Text style={ styles.label }>Cantidad de horas*:</Text>
+        <Text style={ labelTheme }>Cantidad de horas*:</Text>
         <TextInput
-          style={ styles.textInput }
+          style={{ ...styles.textInput, ...customTheme }}
           placeholder="Horas"
           value={ cargaHoras }
           onChangeText={ (value) => onChange( value, 'cargaHoras' ) }
@@ -435,8 +445,6 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
               </Text>
             </TouchableOpacity>
         }
-
-        {/*<Text style={ styles.label }>{ JSON.stringify(form, null, 2) }</Text>*/}
       </ScrollView>
     </View>
   );
@@ -448,10 +456,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 20,
   },
-  label: {
-    fontSize: 18,
-    color: '#000',
-  },
   textInput: {
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -459,9 +463,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 15,
     borderRadius: 20,
-    borderColor: 'rgba(0,0,0,0.4)',
     height: 40,
-    color: '#000',
   },
   textArea: {
     borderWidth: 1,
@@ -470,14 +472,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 15,
     borderRadius: 20,
-    borderColor: 'rgba(0,0,0,0.4)',
-    color: '#000',
   },
   picker: {
     marginTop: 5,
     marginBottom: 15,
-    borderColor: 'rgba(0,0,0,0.4)',
-    color: '#000',
   },
   dateButton: {
     flex: 1,
@@ -490,11 +488,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dateButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 20,
   },
   borrarBtn: {
     fontSize: 13,
-    color: '#ff0000',
+    color: colors.primary,
   },
 });

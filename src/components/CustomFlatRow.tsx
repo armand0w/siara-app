@@ -1,32 +1,51 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props {
   title: string;
   description: string;
   hours: number;
-  tarea: string;
+  task: string;
   onPressFn?: () => void
 }
 
-export const CustomFlatRow = ( { title, description, hours, tarea, onPressFn }: Props ) => {
+export const CustomFlatRow = ( { title, description, hours, task, onPressFn }: Props ) => {
+  const isDarkMode = useColorScheme() === 'dark';
+
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={{
+        ...styles.container,
+        backgroundColor: isDarkMode ? Colors.black : Colors.lighter,
+        borderColor: isDarkMode ? Colors.dark : Colors.light,
+      }}
       onPress={ onPressFn }
     >
-      <Text style={ styles.horas }>
+      <Text style={{
+        ...styles.horas,
+        color: isDarkMode ? Colors.white : Colors.black,
+      }}>
         { hours }
       </Text>
       <View style={styles.containerText}>
-        <Text style={styles.titulo}>
+        <Text style={{
+          ...styles.title,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}>
           { title }
         </Text>
-        <Text style={styles.description}>
+        <Text style={{
+          ...styles.description,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}>
           { description }
         </Text>
-        <Text style={styles.tarea}>
-          { tarea }
+        <Text style={{
+          ...styles.task,
+          color: isDarkMode ? Colors.white : Colors.black,
+        }}>
+          { task }
         </Text>
       </View>
     </TouchableOpacity>
@@ -43,13 +62,14 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     borderRadius: 5,
-    backgroundColor: '#FFF',
+    //backgroundColor: '#FFF',
     elevation: 10,
+    borderWidth: 0.5,
   },
-  titulo: {
+  title: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#000',
+    // color: '#000',
   },
   containerText: {
     flex: 1,
@@ -60,15 +80,15 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 11,
     fontStyle: 'italic',
-    color: '#000',
+    // color: '#000',
   },
-  tarea: {
+  task: {
     fontSize: 10,
     fontWeight: 'bold',
-    color: '#000',
+    // color: '#000',
   },
   horas: {
-    color: '#000',
+    // color: '#000',
     fontSize: 50,
   },
 });

@@ -7,6 +7,8 @@ import { HistoricoHorasScreen } from '../screens/HistoricoHorasScreen';
 import { HorasCargadas } from '../screens/HorasCargadas';
 import { ReporteHoras } from '../screens/ReporteHoras';
 import { FrmCargaHorasScreen } from '../screens/FrmCargaHorasScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useColorScheme } from 'react-native';
 
 export type SiaraStackParams = {
   HomeScreen: undefined,
@@ -19,16 +21,20 @@ export type SiaraStackParams = {
 const Stack = createStackNavigator<SiaraStackParams>();
 
 export const SiaraNavigator = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+
   return (
     <Stack.Navigator
       screenOptions={{
         cardStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
         },
         headerStyle: {
           elevation: 0,
-          shadowColor: 'transparent',
+          // shadowColor: 'transparent',
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
         },
+        headerTintColor: isDarkMode ? Colors.white : Colors.black,
       }}
     >
       <Stack.Screen name="HomeScreen" component={ HomeScreen } options={{ title: 'SIARA' }}/>

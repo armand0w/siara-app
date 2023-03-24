@@ -124,7 +124,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "0.0.2c"
+        versionName "0.0.4"
     }
 
     splits {
@@ -159,8 +159,10 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             if ( hasKeyStore ) {
+                println "=== USE signingConfigs Release ==="
                 signingConfig signingConfigs.release
             } else {
+                println "--- USE signingConfigs DEBUG ---"
                 signingConfig signingConfigs.debug
             }
             minifyEnabled enableProguardInReleaseBuilds
@@ -190,6 +192,8 @@ dependencies {
     implementation("com.facebook.react:react-android")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+    implementation project(':react-native-splash-screen')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
