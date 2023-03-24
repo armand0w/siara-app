@@ -26,8 +26,10 @@ siaraApi.interceptors.request.use(
 );
 
 export const getLogin = async ( username: string, password: string ) => {
-  const { data } = await siaraApi.post<LoginResponse>('/api-rest-siara-ldap-jwt/auth/generatetoken', { username, password });
-  return data;
+  // const { data } = await siaraApi.post<LoginResponse>('/api-rest-siara-ldap-jwt/auth/generatetoken', { username, password });
+  // return data;
+
+  return { accessToken: '', tokenType: 'Bearer' };
 };
 
 export const getUserInfo = async ( username: string ) => {
