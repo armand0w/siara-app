@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ActivityIndicator, useColorScheme, View } from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
 import { colors } from '../theme/colors';
 
 export const LoadingScreen = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  useEffect(() =>{
+  /*useEffect(() =>{
     SplashScreen.hide();
-  }, []);
+  }, []);*/
 
   return (
     <View style={{
