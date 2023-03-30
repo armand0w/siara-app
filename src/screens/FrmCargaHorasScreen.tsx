@@ -204,7 +204,12 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
     }
 
     if ( idCargaHoras.length > 0 && user ) { // edicion
-      let aux = cargaFechaString.split('-');
+      let aux;
+      if ( cargaFechaString.includes('/') ) {
+        aux = cargaFechaString.split('-').reverse().join('/');
+      } else {
+        aux = cargaFechaString;
+      }
 
       await updateHorasSemanaActual({
         idCargaHoras: parseInt(idCargaHoras, 10),
@@ -221,7 +226,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           idTarea: parseInt(idTarea, 10),
         },
         cargaFecha: cargaFechaString,
-        cargaFechaString: `${aux[2]}/${aux[1]}/${aux[0]}`,
+        cargaFechaString: aux,
         editable: true,
       });
     } else { // nuevo registro
