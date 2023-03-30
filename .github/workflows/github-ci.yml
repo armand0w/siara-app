@@ -32,11 +32,11 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version v0.0.4
-            - Se actualiza lista al actualizar hora
-            - No permite editar en historico de horas
-            - Update de dependencias
-            - Tema oscuro
+            Cambios de la version v0.0.5
+            - Se corrige la edicion de fecha
+            - Se arregla version de ios
+            - Upograde de dependencias
+            - Se elimina splashscreen android
           draft: false
           prerelease: false
 
