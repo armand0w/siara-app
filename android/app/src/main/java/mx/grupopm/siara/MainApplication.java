@@ -1,5 +1,7 @@
 package mx.grupopm.siara;
 
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 import android.app.Application;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
@@ -28,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           // packages.add(new SplashScreenReactPackage());
+//            packages.add(new SplashScreenReactPackage()); //here
           return packages;
         }
 
