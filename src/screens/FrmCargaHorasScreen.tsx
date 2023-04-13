@@ -36,7 +36,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   const isDarkMode = useColorScheme() === 'dark';
   const labelTheme = isDarkMode ? {fontSize: 18, color: Colors.white} : {fontSize: 18, color: Colors.black};
   const customTheme = isDarkMode ?
-    { borderColor: Colors.dark, color: Colors.light} :
+    { borderColor: Colors.dark, color: Colors.light } :
     { borderColor: 'rgba(0,0,0,0.4)', color: Colors.black };
 
   const [ date, setDate ] = useState(new Date());
@@ -205,7 +205,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
 
     if ( idCargaHoras.length > 0 && user ) { // edicion
       let aux;
-      if ( cargaFechaString.includes('/') ) {
+      if ( cargaFechaString.includes('-') ) {
         aux = cargaFechaString.split('-').reverse().join('/');
       } else {
         aux = cargaFechaString;
@@ -287,7 +287,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
       <ScrollView>
         <Text style={ labelTheme }>Fecha*:</Text>
         {
-          ( isEditable ) ?
+          ( isEditable && id === '' ) ?
             <TouchableOpacity
                 style={ styles.dateButton }
                 onPress={ () => setDateOpen(true) }

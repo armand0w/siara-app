@@ -10,7 +10,6 @@ import {
   Usuario,
 } from '../interfaces/appInterfaces';
 import * as Sentry from '@sentry/react-native';
-import {Severity} from '@sentry/types';
 
 const baseURL: string = 'http://siara.grupopm.mx:8087';
 const siaraApi = axios.create({ baseURL });
@@ -43,7 +42,7 @@ const fetchData = async (url: string, method: string, payload: any) => {
         // Request made but the server responded with an error
         // console.log(JSON.stringify(error.response, null, 2));
         Sentry.captureMessage(error.message, { level: 'warning', extra: { method, url, payload } });
-        throw new Error(error.message);
+        return null;
       } else if (error.request) {
         // Request made but no response is received from the server.
         // console.log(JSON.stringify(error.request, null, 2));
@@ -91,7 +90,6 @@ export const postCargaHoras = async ( cargaHorasData: CargaHoras ) : Promise<Car
 };
 
 export const deleteCargaHoras = async ( idCargaHoras: number ) : Promise<void> => {
-  // await siaraApi.delete('/api-rest-siara/cargaHoras/' + idCargaHoras);
   await fetchData('/api-rest-siara/cargaHoras/' + idCargaHoras, 'DELETE', null);
 };
 

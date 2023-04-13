@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }: any) => {
   const signIn = async ( { username, password }: LoginData ) => {
     try {
       const loginData = await getLogin( username, password );
-      console.log('despes de login');
       const userInfo = await getUserInfo( username );
 
       if ( loginData.accessToken ) {
