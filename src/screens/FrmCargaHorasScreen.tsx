@@ -345,10 +345,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
             setProyectos([]);
           }}
         >
-          <Picker.Item label="- Selecione un cliente -" value="" />
+          <Picker.Item
+            color={ isDarkMode ? Colors.white : Colors.black }
+            label="- Selecione un cliente -" value=""
+          />
           {
             clientes.map( (c) => (
               <Picker.Item
+                color={ isDarkMode ? Colors.white : Colors.black }
                 label={ c.cteRazonSocial }
                 value={ c.idCliente.toString() }
                 key={ `${c.idCliente}-${c.cteClave}` }
@@ -366,10 +370,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onValueChange={ (value) => onChange(value, 'idProyecto') }
           enabled={ isEditable }
         >
-          <Picker.Item label="- Selecione un proyecto -" value="" />
+          <Picker.Item
+            color={ isDarkMode ? Colors.white : Colors.black }
+            label="- Selecione un proyecto -" value=""
+          />
           {
             proyectos.map( (p) => (
               <Picker.Item
+                color={ isDarkMode ? Colors.white : Colors.black }
                 label={ p.proyDescripcion }
                 value={ p.idProyecto.toString() }
                 key={ `${p.idProyecto}-${p.proyClave}` }
@@ -387,10 +395,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onValueChange={ (value) => onChange(value, 'idTarea') }
           enabled={ isEditable }
         >
-          <Picker.Item label="- Selecione una tarea -" value="" />
+          <Picker.Item
+            color={ isDarkMode ? Colors.white : Colors.black }
+            label="- Selecione una tarea -" value=""
+          />
           {
             tareas.map( (t) => (
               <Picker.Item
+                color={ isDarkMode ? Colors.white : Colors.black }
                 label={ t.tareas.tareaDescripcion }
                 value={ t.tareas.idTarea.toString() }
                 key={ `${t.tareas.idTarea}-${t.tareas.tareaDescripcion}` }
