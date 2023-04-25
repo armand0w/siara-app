@@ -317,8 +317,8 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
                 open={ dateOpen }
                 date={ date }
                 locale="es-MX"
-                minimumDate={ new Date(monday.toString()) }
-                maximumDate={ new Date(sunday.toString()) }
+                // minimumDate={ new Date(monday.toString()) }
+                // maximumDate={ new Date(sunday.toString()) }
                 mode="date"
                 onConfirm={(data) => {
                   setDateOpen( false );

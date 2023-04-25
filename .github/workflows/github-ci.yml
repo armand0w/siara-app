@@ -32,11 +32,13 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version v0.0.5
-            - Se corrige la edicion de fecha
-            - Se arregla version de ios
-            - Upograde de dependencias
-            - Se elimina splashscreen android
+            Cambios de la version v0.0.6
+            - Reporte de errores con sentry
+            - Se elimina uso de loading screen
+            - Splash screen android y ios
+            - Estilos modo oscuro ios
+            - Icono de app ios
+            - Manejo de version ios
           draft: false
           prerelease: false
 
