@@ -22,7 +22,7 @@ yarn add @react-native-picker/picker
 yarn add react-native-date-picker
 
 # https://github.com/crazycodeboy/react-native-splash-screen#installation
-#yarn add react-native-splash-screen
+yarn add react-native-splash-screen
 
 # https://github.com/oblador/react-native-vector-icons#installation
 yarn add react-native-vector-icons

@@ -112,6 +112,7 @@ if (keystorePropertiesFile.exists()) {
     println "+++"
 }
 
+apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -124,7 +125,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "0.0.5"
+        versionName "0.0.6"
     }
 
     splits {
@@ -192,6 +193,8 @@ dependencies {
     implementation("com.facebook.react:react-android")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+    implementation project(':react-native-splash-screen')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

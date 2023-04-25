@@ -5,7 +5,6 @@ import { AuthContext } from '../context/AuthContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/LoginScreen';
 import { StatusScreen } from '../screens/StatusScreen';
-import { LoadingScreen } from '../screens/LoadingScreen';
 import { SiaraNavigator } from './SiaraNavigator';
 import { useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -17,7 +16,7 @@ export const AuthNavigator = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   if ( status === 'checking' ) {
-    return <LoadingScreen/>;
+    return <></>;
   }
 
   return (

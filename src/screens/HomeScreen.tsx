@@ -8,6 +8,7 @@ import { Card } from '../components/Card';
 import { SiaraStackParams } from '../navigator/SiaraNavigator';
 import { HorasContext } from '../context/HorasContext';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import SplashScreen from 'react-native-splash-screen';
 
 interface Props extends StackScreenProps<SiaraStackParams, 'HomeScreen'>{}
 
@@ -46,7 +47,10 @@ export const HomeScreen = ( { navigation }: Props ) => {
     setHorasCargadas( total );
     setHorasNoCargadas( 45 - total );
     setProyectos( Object.entries(projects).length );
-  }, [horasSemana]);
+    if ( horasSemana ) {
+      SplashScreen.hide();
+    }
+  }, [ horasSemana ]);
 
   const onRefresh = async () => {
     setIsRefreshing(true);

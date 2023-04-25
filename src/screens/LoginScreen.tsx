@@ -9,6 +9,7 @@ import { Background } from '../components/Background';
 import { PMGroupLogo } from '../components/PMGroupLogo';
 import { loginStyles } from '../theme/loginTheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 interface Props extends StackScreenProps<any, any>{}
 
@@ -18,6 +19,7 @@ export const LoginScreen = ({ navigation }: Props) => {
     username: '',
     password: '',
   });
+  SplashScreen.hide();
 
   useEffect(() => {
     if ( errorMessage.length === 0 ) {

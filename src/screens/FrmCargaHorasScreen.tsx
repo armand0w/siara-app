@@ -36,7 +36,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
   const isDarkMode = useColorScheme() === 'dark';
   const labelTheme = isDarkMode ? {fontSize: 18, color: Colors.white} : {fontSize: 18, color: Colors.black};
   const customTheme = isDarkMode ?
-    { borderColor: Colors.dark, color: Colors.light} :
+    { borderColor: Colors.dark, color: Colors.light } :
     { borderColor: 'rgba(0,0,0,0.4)', color: Colors.black };
 
   const [ date, setDate ] = useState(new Date());
@@ -205,7 +205,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
 
     if ( idCargaHoras.length > 0 && user ) { // edicion
       let aux;
-      if ( cargaFechaString.includes('/') ) {
+      if ( cargaFechaString.includes('-') ) {
         aux = cargaFechaString.split('-').reverse().join('/');
       } else {
         aux = cargaFechaString;
@@ -287,7 +287,7 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
       <ScrollView>
         <Text style={ labelTheme }>Fecha*:</Text>
         {
-          ( isEditable ) ?
+          ( isEditable && id === '' ) ?
             <TouchableOpacity
                 style={ styles.dateButton }
                 onPress={ () => setDateOpen(true) }
@@ -317,8 +317,8 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
                 open={ dateOpen }
                 date={ date }
                 locale="es-MX"
-                minimumDate={ new Date(monday.toString()) }
-                maximumDate={ new Date(sunday.toString()) }
+                // minimumDate={ new Date(monday.toString()) }
+                // maximumDate={ new Date(sunday.toString()) }
                 mode="date"
                 onConfirm={(data) => {
                   setDateOpen( false );
@@ -345,10 +345,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
             setProyectos([]);
           }}
         >
-          <Picker.Item label="- Selecione un cliente -" value="" />
+          <Picker.Item
+            color={ isDarkMode ? Colors.white : Colors.black }
+            label="- Selecione un cliente -" value=""
+          />
           {
             clientes.map( (c) => (
               <Picker.Item
+                color={ isDarkMode ? Colors.white : Colors.black }
                 label={ c.cteRazonSocial }
                 value={ c.idCliente.toString() }
                 key={ `${c.idCliente}-${c.cteClave}` }
@@ -366,10 +370,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onValueChange={ (value) => onChange(value, 'idProyecto') }
           enabled={ isEditable }
         >
-          <Picker.Item label="- Selecione un proyecto -" value="" />
+          <Picker.Item
+            color={ isDarkMode ? Colors.white : Colors.black }
+            label="- Selecione un proyecto -" value=""
+          />
           {
             proyectos.map( (p) => (
               <Picker.Item
+                color={ isDarkMode ? Colors.white : Colors.black }
                 label={ p.proyDescripcion }
                 value={ p.idProyecto.toString() }
                 key={ `${p.idProyecto}-${p.proyClave}` }
@@ -387,10 +395,14 @@ export const FrmCargaHorasScreen = ( { route, navigation }: Props ) => {
           onValueChange={ (value) => onChange(value, 'idTarea') }
           enabled={ isEditable }
         >
-          <Picker.Item label="- Selecione una tarea -" value="" />
+          <Picker.Item
+            color={ isDarkMode ? Colors.white : Colors.black }
+            label="- Selecione una tarea -" value=""
+          />
           {
             tareas.map( (t) => (
               <Picker.Item
+                color={ isDarkMode ? Colors.white : Colors.black }
                 label={ t.tareas.tareaDescripcion }
                 value={ t.tareas.idTarea.toString() }
                 key={ `${t.tareas.idTarea}-${t.tareas.tareaDescripcion}` }
