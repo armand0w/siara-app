@@ -32,13 +32,9 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version v0.0.6
-            - Reporte de errores con sentry
-            - Se elimina uso de loading screen
-            - Splash screen android y ios
-            - Estilos modo oscuro ios
-            - Icono de app ios
-            - Manejo de version ios
+            Cambios de la version v0.0.6c
+            - Update RN 0.71.11
+            - Update libs
           draft: false
           prerelease: false
 
