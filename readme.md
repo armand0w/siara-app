@@ -27,4 +27,7 @@ yarn add react-native-splash-screen
 # https://github.com/oblador/react-native-vector-icons#installation
 yarn add react-native-vector-icons
 yarn add @types/react-native-vector-icons --dev
+
+# sentry
+yarn add @sentry/react-native
 ```
