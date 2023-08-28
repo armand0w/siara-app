@@ -1,6 +1,6 @@
 {
   "name": "siara-app",
-  "version": "0.0.6c",
+  "version": "0.0.6d",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

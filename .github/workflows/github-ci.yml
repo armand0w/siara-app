@@ -32,9 +32,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version v0.0.6c
-            - Update RN 0.71.11
-            - Update libs
+            Cambios de la version v0.0.6d
+            - Update dependencies
           draft: false
           prerelease: false
 
