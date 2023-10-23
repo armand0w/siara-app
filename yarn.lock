@@ -1871,10 +1871,10 @@
     color "^4.2.3"
     warn-once "^0.1.0"
 
-"@rnx-kit/align-deps@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@rnx-kit/align-deps/-/align-deps-2.2.4.tgz#3ed70da68276163ee9b362f1c625ccc4e17d364d"
-  integrity sha512-sLbQMBU6LvYesH6AsIHKsN6e90PU1JGyjzvZDXYX8VnxqgjmEkgqHF8/PFAKi0lP+OUzDZk6bmSo3cbhd6OqXg==
+"@rnx-kit/align-deps@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@rnx-kit/align-deps/-/align-deps-2.2.5.tgz#bceedc704f160c0bbb7fa7a92ddbeb56ada938fe"
+  integrity sha512-MsTd75B8oHAUYWkrvcpXXA76jTrR9SNX/0fJ7VT4V/TS9icnIjznhu0JBeJ6zJAdzGCVQOP8n14xgaI/4RS1Zg==
 
 "@sentry-internal/tracing@7.63.0":
   version "7.63.0"
