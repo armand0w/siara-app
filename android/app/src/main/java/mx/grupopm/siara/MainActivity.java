@@ -6,9 +6,6 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import android.os.Bundle;
 
-// react-native-splash-screen >= 0.3.1
-import org.devio.rn.splashscreen.SplashScreen; // here
-
 public class MainActivity extends ReactActivity {
 
   /**
@@ -31,15 +28,12 @@ public class MainActivity extends ReactActivity {
             this,
             getMainComponentName(),
             // If you opted-in for the New Architecture, we enable the Fabric Renderer.
-            DefaultNewArchitectureEntryPoint.getFabricEnabled(), // fabricEnabled
-            // If you opted-in for the New Architecture, we enable Concurrent React (i.e. React 18).
-            DefaultNewArchitectureEntryPoint.getConcurrentReactEnabled() // concurrentRootEnabled
+            DefaultNewArchitectureEntryPoint.getFabricEnabled()
     );
   }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    SplashScreen.show(this);  // here
     // super.onCreate(savedInstanceState);
     super.onCreate(null);
   }
