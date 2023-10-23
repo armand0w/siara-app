@@ -32,11 +32,9 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Cambios de la version v0.0.4
-            - Se actualiza lista al actualizar hora
-            - No permite editar en historico de horas
-            - Update de dependencias
-            - Tema oscuro
+            Cambios de la version v0.0.6c
+            - Update RN 0.71.11
+            - Update libs
           draft: false
           prerelease: false
 

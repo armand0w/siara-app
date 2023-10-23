@@ -46,7 +46,7 @@ export const StatusScreen = ({ navigation }: Props) => {
   };
 
   const getBadge = ( data: ServiceStatus ) => {
-
+    // TODO - Crear badge de color
     return (
       <View >
         <Text style={ loginStyles.statusText }>

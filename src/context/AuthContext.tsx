@@ -55,22 +55,28 @@ export const AuthProvider = ({ children }: any) => {
       const loginData = await getLogin( username, password );
       const userInfo = await getUserInfo( username );
 
-      dispatch({
-        type: 'login',
-        payload: {
-          token: loginData.accessToken,
-          user: userInfo,
-        },
-      });
+      if ( loginData.accessToken ) {
+        dispatch({
+          type: 'login',
+          payload: {
+            token: loginData.accessToken,
+            user: userInfo,
+          },
+        });
 
-      await AsyncStorage.setItem('userName', username);
-      await AsyncStorage.setItem('token', loginData.accessToken);
-      await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo, null, 0));
+        await AsyncStorage.setItem('userName', username);
+        await AsyncStorage.setItem('token', loginData.accessToken);
+        await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo, null, 0));
+      } else {
+        dispatch({
+          type: 'addError',
+          payload: 'Sin acceso',
+        });
+      }
     } catch (error: any) {
-      console.log(error);
       dispatch({
         type: 'addError',
-        payload: error.response.data.msg || 'Informacion Erronea',
+        payload: 'Datos incorrectos',
       });
     }
   };

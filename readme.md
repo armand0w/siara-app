@@ -27,4 +27,16 @@ yarn add react-native-date-picker
 # https://github.com/oblador/react-native-vector-icons#installation
 yarn add react-native-vector-icons
 yarn add @types/react-native-vector-icons --dev
+
+# sentry
+yarn add @sentry/react-native
+```
+
+
+```bash
+cd ios
+pod update
+
+cd ..
+watchman watch-del '/Users/armando/workspace/siara-app' ; watchman watch-project '/Users/armando/workspace/siara-app'
 ```
