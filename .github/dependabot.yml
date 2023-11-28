@@ -10,5 +10,6 @@ updates:
     schedule:
       day: monday
       time: 06:00
+      interval: weekly
       timezone: "America/Mexico_City"
     target-branch: "develop"
