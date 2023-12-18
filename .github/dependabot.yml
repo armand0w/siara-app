@@ -9,7 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       day: monday
-      time: "16:30"
+      time: "06:30"
       interval: weekly
       timezone: "America/Mexico_City"
     target-branch: "experimental"
