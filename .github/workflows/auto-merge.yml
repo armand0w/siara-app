@@ -11,7 +11,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Auto merge
+      - name: Auto merge patch
+        uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          target: patch
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto merge minor
         uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
           target: minor
