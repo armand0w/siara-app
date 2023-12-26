@@ -13,6 +13,8 @@ updates:
       time: "06:30"
       timezone: "America/Mexico_City"
     target-branch: "experimental"
+    assignees:
+      - "armand0w"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
