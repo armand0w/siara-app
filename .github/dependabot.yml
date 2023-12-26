@@ -8,12 +8,17 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      day: monday
-      time: "16:30"
       interval: weekly
+      day: monday
+      time: "06:30"
       timezone: "America/Mexico_City"
     target-branch: "experimental"
+    assignees:
+      - "armand0w"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    target-branch: "experimental"
+    assignees:
+      - "armand0w"
