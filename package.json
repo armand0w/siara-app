@@ -13,7 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.22.0",
     "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/native": "^6.1.10",
-    "@react-navigation/native-stack": "^6.9.18",
+    "@react-navigation/native-stack": "^6.9.20",
     "@react-navigation/stack": "^6.3.21",
     "@sentry/react-native": "^5.19.0",
     "axios": "^1.6.7",
