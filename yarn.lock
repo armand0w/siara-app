@@ -6149,10 +6149,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-date-picker@^4.3.6:
-  version "4.3.6"
-  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.3.6.tgz#2825c5f1b0ff9410597a86f00d98f655cc7c70ed"
-  integrity sha512-HRiBcmBzLvGc5k9+TVr3H5Wg6SIvY6Ib0MRbl2pMAGo25jh6bVmk2DcDnXFMFgUZa4d1ExDNe9+1wWmFz0MNcw==
+react-native-date-picker@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.4.0.tgz#fe5b6eb8d85a4a30b2991ada5169a30ce5023ead"
+  integrity sha512-Axx3byihwwhKRLRVjPAr/UaEysapkRcKmjjM8/05UaVm4Q0xDn2RFUcRdy1QAahhRcjLjlVYhepxvU5bdgy7ZQ==
 
 react-native-gesture-handler@^2.15.0:
   version "2.15.0"
