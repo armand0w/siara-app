@@ -107,8 +107,8 @@ android {
         applicationId "mx.grupopm.siara"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
-        versionName "0.0.6f"
+        versionCode 17
+        versionName "0.1.17"
     }
     signingConfigs {
         if ( hasKeyStore ) {
