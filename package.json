@@ -15,7 +15,7 @@
     "@react-navigation/native": "^6.1.16",
     "@react-navigation/native-stack": "^6.9.25",
     "@react-navigation/stack": "^6.3.28",
-    "@sentry/react-native": "^5.19.3",
+    "@sentry/react-native": "^5.20.0",
     "axios": "^1.6.8",
     "react": "18.2.0",
     "react-native": "^0.73.6",
