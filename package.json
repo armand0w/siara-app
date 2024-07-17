@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-native-picker/picker": "^2.7.7",
-    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.10.1",
     "@react-navigation/stack": "^6.4.1",
     "@sentry/react-native": "^5.26.0",
