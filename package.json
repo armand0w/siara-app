@@ -16,7 +16,7 @@
     "@react-navigation/native-stack": "^6.11.0",
     "@react-navigation/stack": "^6.4.1",
     "@sentry/react-native": "^5.26.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "react": "18.2.0",
     "react-native": "^0.74.4",
     "react-native-date-picker": "^5.0.4",
