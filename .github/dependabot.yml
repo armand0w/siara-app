@@ -8,9 +8,9 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: daily
-      day: monday
-      time: "06:30"
+      interval: weekly
+      day: friday
+      time: "08:00"
       timezone: "America/Mexico_City"
     target-branch: "experimental"
     assignees:
