@@ -20,8 +20,15 @@ jobs:
       - name: Storing keystore
         run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > android/app/siarAppRelease.keystore
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+
       - name: Build application
-        run: yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease
+        run: yarn set version berry && yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease
 
       - name: Create Release
         id: create_release
