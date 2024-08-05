@@ -1,5 +1,7 @@
 # Siara App
 
+[React Native Upgrade Helper](https://react-native-community.github.io/upgrade-helper/?package=mx.grupopm.siara&name=SIARApp)
+
 ### Dependencias
 
 ```bash
