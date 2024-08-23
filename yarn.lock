@@ -3406,13 +3406,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/eslint-config@npm:^0.75.1":
-  version: 0.75.1
-  resolution: "@react-native/eslint-config@npm:0.75.1"
+"@react-native/eslint-config@npm:^0.75.2":
+  version: 0.75.2
+  resolution: "@react-native/eslint-config@npm:0.75.2"
   dependencies:
     "@babel/core": "npm:^7.20.0"
     "@babel/eslint-parser": "npm:^7.20.0"
-    "@react-native/eslint-plugin": "npm:0.75.1"
+    "@react-native/eslint-plugin": "npm:0.75.2"
     "@typescript-eslint/eslint-plugin": "npm:^7.1.1"
     "@typescript-eslint/parser": "npm:^7.1.1"
     eslint-config-prettier: "npm:^8.5.0"
@@ -3425,14 +3425,14 @@ __metadata:
   peerDependencies:
     eslint: ">=8"
     prettier: ">=2"
-  checksum: 10c0/9d520a155574013f7330052e04e40ed6e8aefda1d87a1425842dfe696f41354370498e98060a2974eb9c87a3d3fea71119b88ab5a66a1c73ddc5981aea15704b
+  checksum: 10c0/fe3c2f1d5ad088e914692bc641cd641ccd471538d737e5e791e390ecb55294a405d4ba978a4ab56a4b7b7e8454e1aadeeb3c6fbef67ada758fa88c8d2ec48ff0
   languageName: node
   linkType: hard
 
-"@react-native/eslint-plugin@npm:0.75.1":
-  version: 0.75.1
-  resolution: "@react-native/eslint-plugin@npm:0.75.1"
-  checksum: 10c0/55b193f2d0d5a89ccc164a2c0e22bfda850acb10f053721925614ad091561bf7ac5dbcc77914441a9ee1c3728106bc61786297d97f2d00130b7ee7d684677c06
+"@react-native/eslint-plugin@npm:0.75.2":
+  version: 0.75.2
+  resolution: "@react-native/eslint-plugin@npm:0.75.2"
+  checksum: 10c0/61cda967070913c02ac9626e607ec62584d9d244a046b02c5f3afc4cbbfa59dc10c3dcbda63fc2386478d5fb54ac7e5cae359aea0cdc2b50d209c380a4ebe34d
   languageName: node
   linkType: hard
 
@@ -10549,7 +10549,7 @@ __metadata:
     "@react-native-async-storage/async-storage": "npm:^2.0.0"
     "@react-native-picker/picker": "npm:^2.7.7"
     "@react-native/babel-preset": "npm:^0.75.1"
-    "@react-native/eslint-config": "npm:^0.75.1"
+    "@react-native/eslint-config": "npm:^0.75.2"
     "@react-native/metro-config": "npm:^0.75.1"
     "@react-native/typescript-config": "npm:^0.75.2"
     "@react-navigation/native": "npm:^6.1.18"
