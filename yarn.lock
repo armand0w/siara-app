@@ -2488,14 +2488,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:^1.24.0":
-  version: 1.24.0
-  resolution: "@react-native-async-storage/async-storage@npm:1.24.0"
+"@react-native-async-storage/async-storage@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@react-native-async-storage/async-storage@npm:2.0.0"
   dependencies:
     merge-options: "npm:^3.0.4"
   peerDependencies:
-    react-native: ^0.0.0-0 || >=0.60 <1.0
-  checksum: 10c0/cad2098ef84251f2ab8ebc07b750e585a20ac7ca07f26e5441e957a76f2b66f01d10ef5fbddb63d675431377b31beb5208548093e1eb17d262d2184b51133f4d
+    react-native: ^0.0.0-0 || >=0.65 <1.0
+  checksum: 10c0/e09c93aecd2e0509c8d58fa2435d2aaadc7025910102a8d7ed21b4b6ee74ec680f0b2d9eb1e5f0f5b524b48f4dc868cd12a71452686f88664c3deb35ea83f370
   languageName: node
   linkType: hard
 
@@ -10198,7 +10198,7 @@ __metadata:
     "@babel/core": "npm:^7.25.2"
     "@babel/preset-env": "npm:^7.25.3"
     "@babel/runtime": "npm:^7.25.0"
-    "@react-native-async-storage/async-storage": "npm:^1.24.0"
+    "@react-native-async-storage/async-storage": "npm:^2.0.0"
     "@react-native-picker/picker": "npm:^2.7.7"
     "@react-native/babel-preset": "npm:^0.75.1"
     "@react-native/eslint-config": "npm:^0.75.1"
