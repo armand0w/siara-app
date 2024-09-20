@@ -3019,13 +3019,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-picker/picker@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "@react-native-picker/picker@npm:2.8.0"
+"@react-native-picker/picker@npm:^2.8.1":
+  version: 2.8.1
+  resolution: "@react-native-picker/picker@npm:2.8.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/479293f34d52285de90e5d400b176c958c2cfe298086d09864397c2d68a87574ce47b0c1f19ebd727b010b71627d00fb359f1fbda50e03ec9b4ec400f5f5223f
+  checksum: 10c0/f212a1cbd951e81a983fba1eb6171cf4db05590cba86522489ad14f137c7faec1ed4d73fde61613ba0a93394370f7b1294218bb9e5eae2a5a0cd7c6de955af3c
   languageName: node
   linkType: hard
 
@@ -10430,7 +10430,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.25.4"
     "@babel/runtime": "npm:^7.25.6"
     "@react-native-async-storage/async-storage": "npm:^2.0.0"
-    "@react-native-picker/picker": "npm:^2.8.0"
+    "@react-native-picker/picker": "npm:^2.8.1"
     "@react-native/babel-preset": "npm:^0.75.3"
     "@react-native/eslint-config": "npm:^0.75.3"
     "@react-native/metro-config": "npm:^0.75.3"
