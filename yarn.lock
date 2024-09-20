@@ -3727,9 +3727,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/react-native@npm:^5.32.0":
-  version: 5.32.0
-  resolution: "@sentry/react-native@npm:5.32.0"
+"@sentry/react-native@npm:^5.33.0":
+  version: 5.33.0
+  resolution: "@sentry/react-native@npm:5.33.0"
   dependencies:
     "@sentry/babel-plugin-component-annotate": "npm:2.20.1"
     "@sentry/browser": "npm:7.119.0"
@@ -3749,7 +3749,7 @@ __metadata:
       optional: true
   bin:
     sentry-expo-upload-sourcemaps: scripts/expo-upload-sourcemaps.js
-  checksum: 10c0/6900607c18e39945634e7b427c30d9f21fa21bf5a7dbb00105ad3ec830b5aff83668149720bdececba00ace8598c54b2846197bbefa555be3a2ee3825426d25c
+  checksum: 10c0/aefe50d5a7c0f6edbe3a8cb22cfa459a562fb3b05d2fc618556364eb32f817630b212d968560b80f7973d2428186da63415831b2fdf563aaf9a887643aaf70f8
   languageName: node
   linkType: hard
 
@@ -10438,7 +10438,7 @@ __metadata:
     "@react-navigation/native": "npm:^6.1.18"
     "@react-navigation/native-stack": "npm:^6.11.0"
     "@react-navigation/stack": "npm:^6.4.1"
-    "@sentry/react-native": "npm:^5.32.0"
+    "@sentry/react-native": "npm:^5.33.0"
     "@tsconfig/react-native": "npm:^3.0.5"
     "@types/jest": "npm:^29.5.13"
     "@types/react": "npm:^18.3.8"
